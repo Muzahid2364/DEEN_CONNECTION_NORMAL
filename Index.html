@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <title>
+        Deen Connect - Video System v3.2(Normal)
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- AADS
+    <div
+        id="frame"
+        style="
+            width:100%;
+            margin:auto;
+            position:relative;
+            z-index:99998;
+        "
+    >
+
+        <iframe
+            data-aa="2455619"
+            src="https://acceptable.a-ads.com/2455619/?size=Adaptive"
+            style="
+                border:0;
+                padding:0;
+                width:100%;
+                height:90px;
+                overflow:hidden;
+                display:block;
+                margin:auto;
+            "
+        ></iframe>
+
+    </div> -->
+
+
+    <!-- ================================================= -->
+    <!-- SPLASH -->
+    <!-- ================================================= -->
+
+    <div id="splash-screen">
+
+        <div class="splash-content">
+
+            <div class="splash-loader-box">
+
+                <div class="splash-spinner"></div>
+
+            </div>
+
+            <div class="splash-logo">
+                Deen Connect(NORMAL)
+            </div>
+
+            <div class="splash-dev-info">
+
+                Developed by
+                <strong>
+                    Hasan Al Bannah Muzahid
+                </strong>
+
+            </div>
+
+            <div class="splash-version-box">
+
+                <span>
+                    System Version v3.2(NORMAL)
+                </span>
+
+            </div>
+
+            <p class="splash-subtext">
+                Initializing Secure Connection...
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- TOAST -->
+    <!-- ================================================= -->
+
+    <div id="toast">
+        <span id="toast-msg"></span>
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- SIDEBAR OVERLAY -->
+    <!-- ================================================= -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebar-overlay"
+        onclick="toggleSidebar()"
+    ></div>
+
+
+    <!-- ================================================= -->
+    <!-- SIDEBAR -->
+    <!-- ================================================= -->
+
+    <div
+        class="sidebar"
+        id="sidebar"
+    >
+
+        <div class="sidebar-header">
+
+            <span class="sidebar-title">
+                Navigation
+            </span>
+
+            <button
+                class="close-sidebar-btn"
+                onclick="toggleSidebar()"
+            >
+                &times;
+            </button>
+
+        </div>
+
+
+        <div
+            class="sidebar-item"
+            onclick="scrollToSec('join-sec'); toggleSidebar();"
+        >
+            🚪 Join Meeting
+        </div>
+
+
+        <div
+            class="sidebar-item"
+            onclick="scrollToSec('create-sec'); toggleSidebar();"
+        >
+            ➕ Create Meeting
+        </div>
+
+
+        <div
+            class="sidebar-item"
+            onclick="scrollToSec('owner-sec'); toggleSidebar();"
+        >
+            🔑 Owner Login
+        </div>
+
+
+        <div
+            class="sidebar-item"
+            onclick="scrollToSec('about-sec'); toggleSidebar();"
+        >
+            👨‍💻 About Developer
+        </div>
+
+
+        <div
+            class="sidebar-item"
+            onclick="showManualPage(); toggleSidebar();"
+        >
+            📖 User Manual
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- HEADER -->
+    <!-- ================================================= -->
+
+    <header>
+
+        <div class="header-left">
+
+            <button
+                class="menu-toggle-btn"
+                onclick="toggleSidebar()"
+            >
+                ☰
+            </button>
+
+
+            <div
+                class="brand-logo"
+                onclick="window.scrollTo({top:0,behavior:'smooth'})"
+            >
+
+                Deen Connect(Normal)
+
+                <span class="version-tag">
+                    v3.2(NORMAL)
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-nav-links">
+
+            <button
+                class="nav-btn"
+                onclick="scrollToSec('join-sec')"
+            >
+                Join
+            </button>
+
+            <button
+                class="nav-btn"
+                onclick="scrollToSec('create-sec')"
+            >
+                Create
+            </button>
+
+            <button
+                class="nav-btn"
+                onclick="scrollToSec('owner-sec')"
+            >
+                Owner
+            </button>
+
+            <button
+                class="nav-btn"
+                onclick="showManualPage()"
+            >
+                Manual
+            </button>
+
+            <button
+                class="nav-btn"
+                onclick="scrollToSec('about-sec')"
+            >
+                About
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================= -->
+    <!-- MAIN CONTAINER -->
+    <!-- ================================================= -->
+
+    <div class="container">
+
+
+        <!-- ================= BANNER ================= -->
+
+        <div
+            id="notice-banner"
+            class="notice-banner"
+        >
+
+            <div
+                id="notice-text"
+                class="notice-title"
+            >
+                Meeting চলছে [Room Name]
+            </div>
+
+
+            <div class="notice-actions">
+
+                <button
+                    class="btn-sm btn-host-action"
+                    onclick="openHostJoinModal()"
+                >
+                    Join as Host
+                </button>
+
+
+                <button
+                    class="btn-sm btn-user-action"
+                    onclick="toggleUserExpandableBox()"
+                >
+                    Join as User
+                </button>
+
+            </div>
+
+
+            <div
+                id="user-expandable-box"
+            >
+
+                <label>
+                    মিটিং পাসওয়ার্ড (যদি থাকে):
+                </label>
+
+                <input
+                    type="password"
+                    id="exp-user-pass"
+                    placeholder="Enter Room Password"
+                    style="margin-bottom:10px;"
+                >
+
+
+                <label>
+                    আপনার নাম:
+                </label>
+
+                <input
+                    type="text"
+                    id="exp-user-name"
+                    placeholder="Enter Your Display Name"
+                    style="margin-bottom:12px;"
+                >
+
+
+                <button
+                    class="action-btn"
+                    onclick="executeExpandableUserJoin()"
+                >
+                    এখনই যোগ দিন 🚀
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= JOIN ================= -->
+
+        <div
+            id="join-sec"
+            class="card-section"
+        >
+
+            <h2>
+                🚪 Join Meeting
+            </h2>
+
+
+            <div class="input-group">
+
+                <label>
+                    মিটিং নাম (Room Name):
+                </label>
+
+                <input
+                    type="text"
+                    id="join-room"
+                    placeholder="Enter Room Name"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    পাসওয়ার্ড (Optional):
+                </label>
+
+                <input
+                    type="password"
+                    id="join-password"
+                    placeholder="Enter Password"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    আপনার নাম (Display Name):
+                </label>
+
+                <input
+                    type="text"
+                    id="join-name"
+                    placeholder="Enter Your Display Name"
+                >
+
+            </div>
+
+
+            <button
+                class="action-btn"
+                onclick="joinMeetingProcess()"
+            >
+                Join Meeting 🚀
+            </button>
+
+        </div>
+
+
+        <!-- ================= CREATE ================= -->
+
+        <div
+            id="create-sec"
+            class="card-section"
+        >
+
+            <h2>
+                ➕ Create Meeting
+            </h2>
+
+
+            <div class="input-group">
+
+                <label>
+                    Host Username:
+                </label>
+
+                <input
+                    type="text"
+                    id="host-user"
+                    placeholder="Host Username"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Host Password:
+                </label>
+
+                <input
+                    type="password"
+                    id="host-pass"
+                    placeholder="Host Password"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    নতুন মিটিংয়ের নাম (Room Name):
+                </label>
+
+                <input
+                    type="text"
+                    id="create-room"
+                    placeholder="Room Name"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    রুম পাসওয়ার্ড (Optional):
+                </label>
+
+                <input
+                    type="password"
+                    id="create-password"
+                    placeholder="Set Room Password"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    আপনার নাম (Display Name):
+                </label>
+
+                <input
+                    type="text"
+                    id="create-name"
+                    placeholder="Your Display Name"
+                >
+
+            </div>
+
+
+            <div
+                style="
+                    display:flex;
+                    gap:10px;
+                "
+            >
+
+                <button
+                    class="action-btn"
+                    onclick="handleCreateMeeting(true)"
+                >
+                    Create & Start
+                </button>
+
+
+                <button
+                    class="action-btn btn-secondary"
+                    onclick="handleCreateMeeting(false)"
+                >
+                    Create & Wait
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= OWNER ================= -->
+
+        <div
+            id="owner-sec"
+            class="card-section"
+        >
+
+            <h2>
+                🔑 Owner Login
+            </h2>
+
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    id="owner-u"
+                    placeholder="Enter Owner Username"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <input
+                    type="password"
+                    id="owner-p"
+                    placeholder="Enter Owner Password"
+                >
+
+            </div>
+
+
+            <button
+                class="action-btn"
+                onclick="openOwnerModal()"
+            >
+                Open Owner Dashboard
+            </button>
+
+        </div>
+
+
+        <!-- ================= ABOUT ================= -->
+
+        <div
+            id="about-sec"
+            class="about-card"
+        >
+
+            <h3>
+                👨‍💻 About Developer & System
+            </h3>
+
+
+            <div class="about-grid">
+
+
+                <div class="about-item">
+
+                    <b>
+                        System Version
+                    </b>
+
+                    <p>
+                        v3.2 (NORMAL Edition)
+                    </p>
+
+                </div>
+
+
+                <div class="about-item">
+
+                    <b>
+                        Developer Name
+                    </b>
+
+                    <p>
+                        Hasan Al Bannah Muzahid
+                    </p>
+
+                </div>
+
+
+                <div class="about-item">
+
+                    <b>
+                        Role & Expertise
+                    </b>
+
+                    <p>
+                        Full Stack Web & App Developer & IT EXPERT
+                    </p>
+
+                </div>
+
+
+                <div class="about-item">
+
+                    <b>
+                        Duration of Creation
+                    </b>
+
+                    <p>
+                        1 Month+
+                    </p>
+
+                </div>
+
+
+                <div class="about-item">
+
+                    <b>
+                        My skills and hire link
+                    </b>
+
+                    <p>
+                        tinyurl.com/skills-hire-me
+                    </p>
+
+                </div>
+
+
+                <div class="about-item">
+
+                    <b>
+                        Grade / Education
+                    </b>
+
+                    <p>
+                        Class VI | Wisdom Int. School & College
+                    </p>
+
+                </div>
+
+
+                <div class="about-item">
+
+                    <b>
+                        Contact Email
+                    </b>
+
+                    <p>
+                        muzahid0144181@gmail.com
+                    </p>
+
+                </div>
+
+
+                <div class="about-item">
+
+                    <b>
+                        WhatsApp Contact
+                    </b>
+
+                    <p>
+                        +880 1718517927
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= QUICK MANUAL ================= -->
+
+        <div class="manual-summary">
+
+            <h3>
+                📖 দ্রুত ম্যানুয়াল
+            </h3>
+
+
+            <div class="manual-item">
+
+                <b>
+                    ১. Join Meeting
+                </b>
+
+                <p>
+                    Room Name + আপনার নাম দিয়ে Join বাটনে চাপুন।
+                </p>
+
+            </div>
+
+
+            <div class="manual-item">
+
+                <b>
+                    ২. Create Meeting
+                </b>
+
+                <p>
+                    Host Username ও Password দিয়ে নতুন Room তৈরি করুন।
+                </p>
+
+            </div>
+
+
+            <div class="manual-item">
+
+                <b>
+                    ৩. Owner Dashboard
+                </b>
+
+                <p>
+                    Owner লগইন করে Host যোগ/ডিলিট ও মিটিং কন্ট্রোল করুন।
+                </p>
+
+            </div>
+
+
+            <div class="manual-item">
+
+                <b>
+                    ৪. মিটিং চলাকালীন
+                </b>
+
+                <p>
+                    উপরের ব্যানার থেকে দ্রুত Join করা যায়।
+                </p>
+
+            </div>
+
+
+            <div
+                class="manual-btn"
+                onclick="showManualPage()"
+            >
+                📖 সম্পূর্ণ বিশাল ম্যানুয়াল পড়ুন
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- WAITING MODAL -->
+    <!-- ================================================= -->
+
+    <div
+        class="modal"
+        id="zoom-waiting-modal"
+    >
+
+        <div class="modal-content">
+
+            <div class="zoom-loader-container">
+
+                <div class="zoom-spinner"></div>
+
+                <div class="zoom-loader-title">
+                    হোস্ট এখনো মিটিংয়ে যুক্ত হননি
+                </div>
+
+                <div class="zoom-loader-subtext">
+                    অনুগ্রহ করে অপেক্ষা করুন... হোস্ট জয়েন করার সাথে সাথে মিটিং শুরু হবে।
+                </div>
+
+                <button
+                    class="action-btn btn-secondary"
+                    style="
+                        width:auto;
+                        padding:10px 25px;
+                    "
+                    onclick="cancelWaiting()"
+                >
+                    অপেক্ষা বাতিল করুন
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- HOST LOGIN MODAL -->
+    <!-- ================================================= -->
+
+    <div
+        class="modal"
+        id="host-login-modal"
+    >
+
+        <div class="modal-content">
+
+            <h3
+                style="
+                    color:#fbbf24;
+                    margin-bottom:15px;
+                    text-align:center;
+                "
+            >
+                Host Verification
+            </h3>
+
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    id="banner-host-u"
+                    placeholder="Host Username"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <input
+                    type="password"
+                    id="banner-host-p"
+                    placeholder="Host Password"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <input
+                    type="text"
+                    id="banner-host-name"
+                    placeholder="Your Display Name"
+                >
+
+            </div>
+
+
+            <button
+                class="action-btn"
+                onclick="submitHostBannerJoin()"
+            >
+                Start Meeting as Host
+            </button>
+
+
+            <div
+                class="help-link"
+                onclick="
+                    scrollToSec('about-sec');
+                    closeModal('host-login-modal');
+                "
+            >
+                ইউজারনেম বা পাসওয়ার্ড ভুলে গেছেন? Owner-এর সাথে যোগাযোগ করুন
+            </div>
+
+
+            <button
+                class="action-btn btn-secondary"
+                style="margin-top:12px;"
+                onclick="closeModal('host-login-modal')"
+            >
+                বাতিল
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- OWNER DASHBOARD -->
+    <!-- ================================================= -->
+
+    <div
+        class="modal"
+        id="owner-modal"
+    >
+
+        <div class="modal-content">
+
+            <h3
+                style="
+                    color:#fbbf24;
+                    text-align:center;
+                    margin-bottom:20px;
+                "
+            >
+                ⚡ Owner Master Dashboard
+            </h3>
+
+
+            <div class="owner-section-box">
+
+                <h4>
+                    📊 চলমান মিটিং সংক্রান্ত তথ্য (Live Overview)
+                </h4>
+
+                <div
+                    id="meeting-details-content"
+                    style="
+                        font-size:13px;
+                        color:var(--text-muted);
+                        line-height:1.7;
+                    "
+                >
+                    ডাটা লোড হচ্ছে...
+                </div>
+
+            </div>
+
+
+            <div class="owner-section-box">
+
+                <h4>
+                    👤 হোস্ট নির্দেশিকা ও এড করুন
+                </h4>
+
+
+                <div class="input-group">
+
+                    <input
+                        type="text"
+                        id="new-host-u"
+                        placeholder="New Host Username"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <input
+                        type="password"
+                        id="new-host-p"
+                        placeholder="New Host Password"
+                    >
+
+                </div>
+
+
+                <button
+                    class="action-btn"
+                    style="
+                        padding:10px;
+                        font-size:13px;
+                    "
+                    onclick="createNewHost()"
+                >
+                    Create New Host
+                </button>
+
+
+                <div
+                    id="host-list-container"
+                    style="
+                        max-height:130px;
+                        overflow-y:auto;
+                        margin-top:12px;
+                    "
+                ></div>
+
+            </div>
+
+
+            <div class="owner-section-box">
+
+                <h4>
+                    ⚙️ Owner Profile/Password Change (Optional)
+                </h4>
+
+
+                <p
+                    style="
+                        font-size:11px;
+                        color:var(--text-muted);
+                        margin-bottom:10px;
+                    "
+                >
+                    প্রয়োজন না হলে পরিবর্তন করার প্রয়োজন নেই।
+                </p>
+
+
+                <div class="input-group">
+
+                    <input
+                        type="text"
+                        id="change-owner-u"
+                        placeholder="New Owner Username"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <input
+                        type="password"
+                        id="change-owner-p"
+                        placeholder="New Owner Password"
+                    >
+
+                </div>
+
+
+                <button
+                    class="action-btn btn-secondary"
+                    style="
+                        padding:10px;
+                        font-size:13px;
+                    "
+                    onclick="submitChangeOwnerCredentials()"
+                >
+                    Update Owner Login
+                </button>
+
+            </div>
+
+
+            <button
+                class="action-btn btn-secondary"
+                style="margin-top:10px;"
+                onclick="closeModal('owner-modal')"
+            >
+                ড্যাশবোর্ড বন্ধ করুন
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- FULL MANUAL -->
+    <!-- ================================================= -->
+
+    <div id="manual-page">
+
+        <div class="manual-full">
+
+            <h2>
+                📖 Deen Connect - সম্পূর্ণ ও বিস্তারিত ইউজার ম্যানুয়াল
+            </h2>
+
+
+            <p class="sub">
+
+                Version 3.2 (NORMAL)<br>
+
+                Developed by Hasan Al Bannah Muzahid<br>
+
+                এই ম্যানুয়ালটি এমনভাবে লেখা হয়েছে যাতে একবার পড়লে আর কখনো ভুলতে না হয়
+
+            </p>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ১. Deen Connect কী এবং কেন ব্যবহার করবেন?
+                </h3>
+
+                <p>
+                    Deen Connect হলো একটি সহজ, দ্রুত এবং নির্ভরযোগ্য লাইভ ভিডিও মিটিং সিস্টেম। এটি Google Sheets-এর উপর ভিত্তি করে তৈরি। এর মাধ্যমে আপনি অনলাইন ক্লাস, বৈঠক, আলোচনা বা যেকোনো ধরনের লাইভ মিটিং করতে পারবেন।
+                </p>
+
+                <p>
+                    এই সিস্টেমের সুবিধা:
+                </p>
+
+                <ul>
+
+                    <li>
+                        কোনো অতিরিক্ত সফটওয়্যার ইনস্টল করতে হয় না
+                    </li>
+
+                    <li>
+                        শুধু ব্রাউজার থাকলেই চলে
+                    </li>
+
+                    <li>
+                        মোবাইল ও কম্পিউটার দুটোতেই ভালো কাজ করে
+                    </li>
+
+                    <li>
+                        মিটিং তৈরি ও জয়েন করা খুবই সহজ
+                    </li>
+
+                    <li>
+                        Owner চাইলে সম্পূর্ণ নিয়ন্ত্রণ করতে পারেন
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ২. প্রথমবার সাইট খুললে কী দেখবেন?
+                </h3>
+
+                <ul>
+
+                    <li>
+                        প্রথমে ১২ সেকেন্ডের একটি সুন্দর Splash Screen আসবে।
+                    </li>
+
+                    <li>
+                        Splash-এ Deen Connect-এর নাম, ডেভেলপারের নাম এবং ভার্সন দেখা যাবে।
+                    </li>
+
+                    <li>
+                        Splash শেষ হলে মূল পেজ চলে আসবে।
+                    </li>
+
+                    <li>
+                        উপরে Navigation মেনু থাকবে (Join, Create, Owner, About)।
+                    </li>
+
+                    <li>
+                        বাম পাশে Sidebar থাকবে (☰ বাটনে চাপলে খুলবে)।
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ৩. Join Meeting করার সম্পূর্ণ নিয়ম
+                </h3>
+
+                <p>
+                    মিটিংয়ে যোগ দিতে চাইলে এই ধাপগুলো অনুসরণ করুন:
+                </p>
+
+                <ul>
+
+                    <li>
+                        <b>ধাপ ১:</b>
+                        “Join Meeting” অংশে যান।
+                    </li>
+
+                    <li>
+                        <b>ধাপ ২:</b>
+                        Room Name লিখুন।
+                    </li>
+
+                    <li>
+                        <b>ধাপ ৩:</b>
+                        যদি Room-এ পাসওয়ার্ড থাকে তাহলে পাসওয়ার্ড দিন।
+                    </li>
+
+                    <li>
+                        <b>ধাপ ৪:</b>
+                        আপনার Display Name লিখুন।
+                    </li>
+
+                    <li>
+                        <b>ধাপ ৫:</b>
+                        “Join Meeting” বাটনে চাপুন।
+                    </li>
+
+                </ul>
+
+
+                <div class="manual-highlight">
+
+                    যদি Host এখনো মিটিংয়ে না এসে থাকে, তাহলে একটি অপেক্ষা স্ক্রিন আসবে। Host জয়েন করলে আপনি স্বয়ংক্রিয়ভাবে মিটিংয়ে প্রবেশ করবেন।
+
+                </div>
+
+            </div>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ৪. Create Meeting করার সম্পূর্ণ নিয়ম (Host-দের জন্য)
+                </h3>
+
+                <p>
+                    নতুন মিটিং তৈরি করতে চাইলে:
+                </p>
+
+                <ul>
+
+                    <li>
+                        <b>ধাপ ১:</b>
+                        “Create Meeting” অংশে যান।
+                    </li>
+
+                    <li>
+                        <b>ধাপ ২:</b>
+                        Host Username লিখুন।
+                    </li>
+
+                    <li>
+                        <b>ধাপ ৩:</b>
+                        Host Password লিখুন।
+                    </li>
+
+                    <li>
+                        <b>ধাপ ৪:</b>
+                        নতুন Room Name দিন।
+                    </li>
+
+                    <li>
+                        <b>ধাপ ৫:</b>
+                        প্রয়োজন হলে Room Password সেট করুন।
+                    </li>
+
+                    <li>
+                        <b>ধাপ ৬:</b>
+                        আপনার Display Name লিখুন।
+                    </li>
+
+                    <li>
+                        <b>ধাপ ৭:</b>
+                        দুটি অপশন পাবেন:
+
+                        <ul>
+
+                            <li>
+                                <b>Create & Start</b>
+                                → মিটিং সাথে সাথে শুরু হবে।
+                            </li>
+
+                            <li>
+                                <b>Create & Wait</b>
+                                → মিটিং তৈরি হবে কিন্তু আপনি পরে জয়েন করবেন।
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ৫. উপরের হলুদ ব্যানার কীভাবে ব্যবহার করবেন
+                </h3>
+
+                <p>
+                    যখন কোনো মিটিং Active বা Waiting অবস্থায় থাকে, তখন পেজের উপরে একটি হলুদ ব্যানার দেখা যায়।
+                </p>
+
+                <ul>
+
+                    <li>
+                        <b>Join as Host</b>
+                        বাটনে চাপলে Host Verification চাইবে।
+                    </li>
+
+                    <li>
+                        <b>Join as User</b>
+                        বাটনে চাপলে একটি বক্স খুলবে।
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ৬. Owner Dashboard কীভাবে ব্যবহার করবেন
+                </h3>
+
+                <p>
+                    Owner Dashboard হলো সিস্টেমের সবচেয়ে শক্তিশালী অংশ।
+                </p>
+
+                <ul>
+
+                    <li>
+                        চলমান মিটিংয়ের সম্পূর্ণ তথ্য দেখতে
+                    </li>
+
+                    <li>
+                        নতুন Host যোগ করতে
+                    </li>
+
+                    <li>
+                        পুরনো Host ডিলিট করতে
+                    </li>
+
+                    <li>
+                        মিটিং জোর করে বন্ধ করতে
+                    </li>
+
+                    <li>
+                        Owner-এর Username ও Password পরিবর্তন করতে
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ৭. মিটিং শেষ করার সঠিক নিয়ম
+                </h3>
+
+                <p>
+                    মিটিং শেষ হলে Element/Jitsi-এর ভিতরের Leave বাটনে না চেপে সরাসরি সেই ট্যাবটি বন্ধ করে দিন।
+                </p>
+
+                <div class="manual-highlight">
+
+                    ট্যাব বন্ধ করলে আপনি আবার Deen Connect পেজে ফিরে আসবেন।
+
+                </div>
+
+            </div>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ৮. Sidebar ও Navigation কীভাবে ব্যবহার করবেন
+                </h3>
+
+                <ul>
+
+                    <li>
+                        উপরের বাম দিকের ☰ বাটনে চাপলে Sidebar খুলবে।
+                    </li>
+
+                    <li>
+                        Sidebar থেকে Join, Create, Owner, Manual এবং About-এ যেতে পারবেন।
+                    </li>
+
+                    <li>
+                        উপরের Navigation বাটনগুলো দিয়েও একই কাজ করা যায়।
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ৯. সাধারণ সমস্যা এবং তার সমাধান
+                </h3>
+
+                <ul>
+
+                    <li>
+                        <b>সমস্যা:</b>
+                        মিটিং পাওয়া যাচ্ছে না
+                        <br>
+                        <b>সমাধান:</b>
+                        Room Name সঠিকভাবে লিখেছেন কিনা চেক করুন।
+                    </li>
+
+                    <li>
+                        <b>সমস্যা:</b>
+                        Host লগইন হচ্ছে না
+                        <br>
+                        <b>সমাধান:</b>
+                        Username এবং Password ঠিক আছে কিনা দেখুন।
+                    </li>
+
+                    <li>
+                        <b>সমস্যা:</b>
+                        অপেক্ষা স্ক্রিন আটকে আছে
+                        <br>
+                        <b>সমাধান:</b>
+                        Host মিটিংয়ে জয়েন করেছে কিনা দেখুন।
+                    </li>
+
+                    <li>
+                        <b>সমস্যা:</b>
+                        Owner Dashboard খুলছে না
+                        <br>
+                        <b>সমাধান:</b>
+                        সঠিক Owner Username ও Password দিন।
+                    </li>
+
+                    <li>
+                        <b>সমস্যা:</b>
+                        মিটিং থেকে বের হতে পারছি না
+                        <br>
+                        <b>সমাধান:</b>
+                        মিটিংয়ের ট্যাবটি সরাসরি বন্ধ করে দিন।
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ১০. ভালো ব্যবহারের কিছু পরামর্শ
+                </h3>
+
+                <ul>
+
+                    <li>
+                        Room Name সহজ এবং মনে রাখার মতো রাখুন।
+                    </li>
+
+                    <li>
+                        প্রয়োজন না হলে Room Password না দিলেই ভালো।
+                    </li>
+
+                    <li>
+                        মিটিং শেষ হলে Owner চাইলে Force Close করে দিতে পারেন।
+                    </li>
+
+                    <li>
+                        Display Name সঠিক এবং পরিচিত রাখুন।
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ১১. যোগাযোগ ও সাপোর্ট
+                </h3>
+
+                <p>
+                    কোনো সমস্যা হলে ডেভেলপারের সাথে যোগাযোগ করুন:
+                </p>
+
+                <p>
+
+                    <b>
+                        Hasan Al Bannah Muzahid
+                    </b>
+
+                    <br>
+
+                    Email:
+                    muzahid0144181@gmail.com
+
+                    <br>
+
+                    WhatsApp:
+                    +880 1718517927
+
+                </p>
+
+            </div>
+
+
+            <div class="manual-section">
+
+                <h3>
+                    ১২. শেষ কথা
+                </h3>
+
+                <p>
+                    এই ম্যানুয়ালটি পড়ার পর আপনি Deen Connect-এর প্রায় সবকিছু জেনে গেছেন। এখন আত্মবিশ্বাসের সাথে ব্যবহার করুন।
+                </p>
+
+                <div class="manual-highlight">
+
+                    Deen Connect ব্যবহার করে সুন্দর ও সুষ্ঠু মিটিং উপভোগ করুন।
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="action-btn"
+                style="margin-top:16px;"
+                onclick="hideManualPage()"
+            >
+                ← হোমপেজে ফিরে যান
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ================================================= -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
